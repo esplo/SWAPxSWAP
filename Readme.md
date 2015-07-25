@@ -16,7 +16,11 @@
 import esplo.config.AppConfig
 
 new AppConfig {
-  val phantomJSPath: String = """path/to/your/phantomjs.exe"""
+  override val phantomJSPath: String = """/path/to/phantomjs.exe"""
+  override val mongoHost: String = "localhost"
+  override val mongoPort: Int = 27017
+  override val mongoDBName: String = "swap-swap"
+  override val mongoCollectionName: String = "SwapInfo"
 }
 ```
 
@@ -24,6 +28,14 @@ new AppConfig {
 
 * phantomJSPath
     * PhantomJSのexeファイルへのパス
+* mongoHost
+    * MongoDBのホスト名
+* mongoPort
+    * MongoDBのポート
+* mongoDBName
+    * MongoDBで使用するDB名
+* mongoCollectionName
+    * MongoDBで使用するコレクション名
 
 ### 実行
 プロジェクトルートで、以下のコマンドを実行します。

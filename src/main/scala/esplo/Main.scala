@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 object Main {
 
   val logger = Logger(LoggerFactory.getLogger("swap-swap"))
+  val dbManager = new DBManager
 
   def main(args: Array[String]) {
     val driver = (new DriverManager).driver
@@ -15,7 +16,7 @@ object Main {
     logger.info("start collecting")
 
     val dmm = new DMM
-    println( dmm.parse(driver) )
+    dbManager.writeSwapInfo( dmm.parse(driver) )
 
     logger.info("end collecting")
 
