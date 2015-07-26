@@ -16,7 +16,7 @@ object Main {
     logger.info("start collecting")
 
     val dmm = new DMM
-    dbManager.writeSwapInfo( dmm.parse(driver) )
+    dbManager.writeSwapInfo( dmm.name, dmm.parse(driver) )
 
     logger.info("end collecting")
 
