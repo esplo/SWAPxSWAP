@@ -1,7 +1,8 @@
 package esplo
 
 import com.typesafe.scalalogging.Logger
-import esplo.broker.DMM
+import esplo.broker.{Broker, Livestar, DMM}
+import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.slf4j.LoggerFactory
 
 
@@ -15,12 +16,17 @@ object Main {
 
     logger.info("start collecting")
 
-    val dmm = new DMM
-    dbManager.writeSwapInfo( dmm.name, dmm.parse(driver) )
+    val writer = write(driver) _
+    writer(new DMM)
+    writer(new Livestar)
 
     logger.info("end collecting")
 
     driver.quit()
+  }
+
+  def write(driver: PhantomJSDriver)(broker: Broker) = {
+    dbManager.writeSwapInfo( broker.name, broker.parse(driver) )
   }
 
 }
