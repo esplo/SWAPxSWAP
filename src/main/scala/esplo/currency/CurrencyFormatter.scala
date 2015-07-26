@@ -5,25 +5,32 @@ object CurrencyFormatter {
 
   // 通貨ペアを表す文字列を通貨ペアクラスに変換
   def str2CurrencyPair(str: String, delim: String = "/"): Option[CurrencyPair] = {
-    val currencies = str.split(delim)
 
-    if (currencies.length != 2)
-      None
-    else {
-      val base = str2Currency(currencies(0))
-      val quote = str2Currency(currencies(1))
+    def convert(name1: String, name2: String): Option[CurrencyPair] = {
+      val base = str2Currency(name1)
+      val quote = str2Currency(name2)
 
       if (base.isEmpty || quote.isEmpty)
         None
       else
         Some(CurrencyPair(base.get, quote.get))
     }
+
+    str.split(delim).toList match {
+      // delimiterが無く、6文字の場合は3文字ずつで分ける
+      case List(s: String) if s.length == 6 =>
+        convert(str.substring(0, 3), str.substring(3, 6))
+      case List(s1: String, s2: String) =>
+        convert(s1, s2)
+      case _ =>
+        None
+    }
   }
 
   // 通貨名から通貨クラスに変換
   def str2Currency(str: String): Option[Currency] = {
     // 名前を全通貨から検索
-    val hitNames = Currency.allCurrencies().filter(_.names.exists(_ == str))
+    val hitNames = Currency.allCurrencies().filter(_.names.exists(_.toLowerCase == str.toLowerCase))
 
     // 複数見つかった場合、登録ミスが疑われるのでassert
     assert(hitNames.size <= 1, s"there are currencies that have the same name $str!")

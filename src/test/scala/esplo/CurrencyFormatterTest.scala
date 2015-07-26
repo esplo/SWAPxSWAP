@@ -17,6 +17,12 @@ class CurrencyFormatterTest extends org.scalatest.FunSuite {
     assert(currencyPair.get.quote == USD)
   }
 
+  test("str2CurrencyPair can convert a string which contains name candidates (no delimiter)") {
+    val currencyPair = CurrencyFormatter.str2CurrencyPair("usdjpy")
+    assert(currencyPair.get.base == USD)
+    assert(currencyPair.get.quote == JPY)
+  }
+
   test("str2CurrencyPair returns None if given string doesn't contain name candidates") {
     val currencyPair = CurrencyFormatter.str2CurrencyPair("USD/XXXX")
     assert(currencyPair.isEmpty)
