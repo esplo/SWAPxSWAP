@@ -29,7 +29,7 @@ class DBManager {
         "broker" -> brokerName,
         "pair" -> swapInfo.pair.toString,
         "date" -> swapInfo.date.getTime,
-        "numberOfDate" -> swapInfo.numberOfDate,
+        "numberOfDate" -> swapInfo.numberOfDate.getOrElse(-1),
         "buy" -> swapInfo.buy.value,
         "sell" -> swapInfo.sell.value,
         "swapCurrency" -> swapInfo.buy.currency.name

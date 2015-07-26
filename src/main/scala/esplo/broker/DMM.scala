@@ -104,7 +104,7 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
           CurrencyFormatter.str2CurrencyPair(pair) match {
             case None => None
             case Some(c) =>
-              Some(new SwapInfo(c, date, num, new Price(JPY, buy), new Price(JPY, sell)))
+              Some(new SwapInfo(c, date, Some(num), new Price(JPY, buy), new Price(JPY, sell)))
           }
         })
       })
