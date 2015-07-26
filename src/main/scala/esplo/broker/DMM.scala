@@ -98,7 +98,6 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
         // returns List[SwapInfo] from elements
         getPairData(pairs, elements).flatMap(elem => {
           val (pair, num, buy, sell) = elem
-          logger.info(s"element: $elem")
 
           // infoをスワップ情報に変換
           CurrencyFormatter.str2CurrencyPair(pair) match {
