@@ -39,6 +39,17 @@ class DBManager {
       logger.info(s"insert: $obj")
       coll.insert(obj)
     }
-    swaps.map(swapInfo2MongoDBObject).foreach(insert)
+
+    // duplication check
+    def isNotDuplicate(swapInfo: SwapInfo): Boolean = {
+      val condition = MongoDBObject(
+        "broker" -> brokerName,
+        "pair" -> swapInfo.pair.toString,
+        "date" -> swapInfo.date.getTime
+      )
+      coll.findOne(condition).isEmpty
+    }
+
+    swaps.filter(isNotDuplicate).map(swapInfo2MongoDBObject).foreach(insert)
   }
 }
