@@ -1,7 +1,7 @@
 package esplo
 
 import com.typesafe.scalalogging.Logger
-import esplo.broker.{Broker, Livestar, DMM}
+import esplo.broker.{YJFX, Broker, Livestar, DMM}
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.slf4j.LoggerFactory
 
@@ -19,6 +19,7 @@ object Main {
     val writer = write(driver) _
     writer(new DMM)
     writer(new Livestar)
+    writer(new YJFX )
 
     logger.info("end collecting")
 
