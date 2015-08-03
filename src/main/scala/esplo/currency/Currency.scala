@@ -18,13 +18,15 @@ object Currency {
 
   case object MXN extends Currency(List("ペソ"))
 
-  case object CNY extends Currency(List("元"))
+  case object CNY extends Currency(List("元", "人民元"))
 
-  case object NZD extends Currency(List("NZドル"))
+  case object NZD extends Currency(List("NZドル", "ＮＺドル"))
 
   case object RUB extends Currency(List("ルーブル"))
 
-  case object ZAR extends Currency(List("南アランド"))
+  case object ZAR extends Currency(List("南アランド", "ランド"))
+
+  case object HKD extends Currency(List("香港ドル"))
 
   // 検索のため、全列挙したリストを返す
   def allCurrencies(): List[Currency] = {
@@ -40,7 +42,8 @@ object Currency {
       CNY,
       NZD,
       RUB,
-      ZAR
+      ZAR,
+      HKD
     )
   }
 
