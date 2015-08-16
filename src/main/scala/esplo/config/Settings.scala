@@ -1,5 +1,5 @@
 package esplo.config
 
 object Settings {
-  val appConfig = Eval.fromFileName[AppConfig]("./AppConfig.scala")
+  val appConfig = Eval.fromFileName[AppConfig]("./app.conf")
 }
