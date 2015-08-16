@@ -1,6 +1,5 @@
 package esplo
 
-import com.twitter.util.Eval
 import esplo.config.{Settings, AppConfig}
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.openqa.selenium.remote.DesiredCapabilities
