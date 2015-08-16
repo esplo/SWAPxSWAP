@@ -9,15 +9,16 @@
 <a name="setting">
 ## 設定ファイル
 プロジェクトルートに"app.conf"という名前で設定ファイルを用意します。
-内容は以下の通り。
+設定例を以下に掲載します。
 
 ```Scala
 import esplo.config.AppConfig
+import scala.sys._
 
 new AppConfig {
-  override val phantomJSPath: String = """/path/to/phantomjs.exe"""
-  override val mongoHost: String = "localhost"
-  override val mongoPort: Int = 27017
+  override val phantomJSPath: String = """/phantomjs/bin/phantomjs"""
+  override val mongoHost: String = sys.env.getOrElse("DB_PORT_27017_TCP_ADDR", "localhost")
+  override val mongoPort: Int = sys.env.getOrElse("DB_PORT_27017_TCP_PORT", "27101").toInt
   override val mongoDBName: String = "swap-swap"
   override val mongoCollectionName: String = "SwapInfo"
 }
