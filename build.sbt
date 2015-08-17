@@ -1,4 +1,4 @@
-name := "swap-swap"
+name := "swapxswap"
 
 version := "0.1"
 
