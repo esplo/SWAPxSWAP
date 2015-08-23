@@ -1,0 +1,8 @@
+db:
+    image: mongo
+
+swapxswap:
+    build: .
+    command: bash -c "git fetch origin && git reset --hard origin/master && sbt run" 
+    links:
+        - db

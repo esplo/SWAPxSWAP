@@ -15,4 +15,5 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 
-app.conf
+# only ignore app.conf in root
+/app.conf
