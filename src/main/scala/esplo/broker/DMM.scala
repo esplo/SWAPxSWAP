@@ -66,7 +66,7 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
           cal.setTime(date)
 
           // 現在時刻より進んでいる => 12月の情報なら1年戻して調整
-          if (Calendar.getInstance().compareTo(cal) > 0)
+          if (Calendar.getInstance().compareTo(cal) < 0)
             cal.add(Calendar.YEAR, -1)
           cal
         }
