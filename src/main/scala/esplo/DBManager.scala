@@ -15,7 +15,11 @@ class DBManager {
     Settings.appConfig.mongoPort
   )
   val db = mongoClient(Settings.appConfig.mongoDBName)
-  val coll = db(Settings.appConfig.mongoCollectionName)
+  val coll = {
+    if (! db.collectionExists(Settings.appConfig.mongoCollectionName))
+      db.createCollection(Settings.appConfig.mongoCollectionName, DBObject())
+    db(Settings.appConfig.mongoCollectionName)
+  }
 
   logger.info(s"${Settings.appConfig.mongoHost}:${Settings.appConfig.mongoPort}")
   logger.info(s"db: ${Settings.appConfig.mongoDBName}")
