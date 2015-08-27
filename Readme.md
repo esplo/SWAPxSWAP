@@ -18,7 +18,7 @@ import scala.sys._
 new AppConfig {
   override val phantomJSPath: String = """/phantomjs/bin/phantomjs"""
   override val mongoHost: String = sys.env.getOrElse("DB_PORT_27017_TCP_ADDR", "localhost")
-  override val mongoPort: Int = sys.env.getOrElse("DB_PORT_27017_TCP_PORT", "27101").toInt
+  override val mongoPort: Int = sys.env.getOrElse("DB_PORT_27017_TCP_PORT", "27017").toInt
   override val mongoDBName: String = "swap-swap"
   override val mongoCollectionName: String = "SwapInfo"
 }
