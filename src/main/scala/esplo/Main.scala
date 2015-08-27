@@ -1,7 +1,7 @@
 package esplo
 
 import com.typesafe.scalalogging.Logger
-import esplo.broker.{YJFX, Broker, Livestar, DMM}
+import esplo.broker.{Broker, DMM, Livestar, YJFX}
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.slf4j.LoggerFactory
 

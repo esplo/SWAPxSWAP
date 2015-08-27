@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.{ExpectedCondition, WebDriverWait}
 
 import scala.collection.JavaConversions._
 
+
 /**
  * HTmLのtableで提供
  * スワップの価値は円表記

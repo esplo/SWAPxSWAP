@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 import esplo.currency.Currency.JPY
-import esplo.currency.{Price, CurrencyFormatter, SwapInfo}
+import esplo.currency.{CurrencyFormatter, Price, SwapInfo}
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 
 

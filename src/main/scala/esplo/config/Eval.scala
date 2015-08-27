@@ -2,9 +2,11 @@ package esplo.config
 
 // ref: http://d.hatena.ne.jp/xuwei/20140607/1402128646
 
+import java.io.File
+
 import scala.reflect.runtime.currentMirror
 import scala.tools.reflect.ToolBox
-import java.io.File
+
 
 object Eval {
 

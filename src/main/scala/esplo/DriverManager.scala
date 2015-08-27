@@ -1,8 +1,9 @@
 package esplo
 
-import esplo.config.{Settings, AppConfig}
+import esplo.config.Settings
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.openqa.selenium.remote.DesiredCapabilities
+
 
 class DriverManager {
 

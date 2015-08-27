@@ -1,5 +1,6 @@
 package esplo.currency
 
+
 object Currency {
 
   case object USD extends Currency(List("米ドル", "ドル"))

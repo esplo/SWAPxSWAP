@@ -1,13 +1,14 @@
 package esplo.broker
 
-import java.util.{Date, Calendar}
+import java.util.{Calendar, Date}
 
 import esplo.currency.Currency.JPY
-import esplo.currency.{Price, CurrencyFormatter, SwapInfo}
+import esplo.currency.{CurrencyFormatter, Price, SwapInfo}
 import org.apache.commons.lang3.time.DateUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.phantomjs.PhantomJSDriver
-import collection.JavaConversions._
+
+import scala.collection.JavaConversions._
 
 
 // YJFX displays daily swaps in JPY

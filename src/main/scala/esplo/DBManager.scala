@@ -6,6 +6,7 @@ import esplo.config.Settings
 import esplo.currency.SwapInfo
 import org.slf4j.LoggerFactory
 
+
 class DBManager {
   val logger = Logger(LoggerFactory.getLogger("swap-swap:db"))
   logger.info("Start initializing DB")
