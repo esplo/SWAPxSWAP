@@ -1,9 +1,10 @@
 package esplo.broker
 
-import java.util.Calendar
+import java.util.{Date, Calendar}
 
 import esplo.currency.Currency.JPY
 import esplo.currency.{Price, CurrencyFormatter, SwapInfo}
+import org.apache.commons.lang3.time.DateUtils
 import org.openqa.selenium.By
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import collection.JavaConversions._
@@ -17,7 +18,12 @@ class YJFX extends Broker("YJFX", "http://www.yjfx.jp/gaikaex/mark/swap/today.ph
     driver.get(url)
     logger.info(s"start parsing $name")
 
-    val today = Calendar.getInstance()
+    val today = {
+      val date = DateUtils.truncate(new Date(), Calendar.DATE)
+      val cal = Calendar.getInstance()
+      cal.setTime(date)
+      cal
+    }
 
     val table = driver.findElementsByXPath( """//table[@class="tbl"]/tbody/tr""")
 
