@@ -1,6 +1,6 @@
 package esplo.currency
 
 
-class Price(val currency: Currency, val value: Long) {
+case class Price(currency: Currency, value: Long) {
   override def toString = s"$value$currency"
 }

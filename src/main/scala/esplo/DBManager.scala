@@ -3,8 +3,10 @@ package esplo
 import com.mongodb.casbah.Imports._
 import com.typesafe.scalalogging.Logger
 import esplo.config.Settings
-import esplo.currency.SwapInfo
+import esplo.currency.{SwapInfoForDB, SwapInfo}
 import org.slf4j.LoggerFactory
+import com.novus.salat._
+import com.novus.salat.global._
 
 
 class DBManager {
@@ -29,32 +31,22 @@ class DBManager {
 
   // write SwapInfo to DB
   def writeSwapInfo(swaps: List[SwapInfo]) = {
-    def swapInfo2MongoDBObject(swapInfo: SwapInfo): MongoDBObject = {
-      MongoDBObject(
-        "broker" -> swapInfo.brokerName,
-        "pair" -> swapInfo.pair.toString,
-        "date" -> swapInfo.date.getTime,
-        "numberOfDays" -> swapInfo.numberOfDays.getOrElse(-1),
-        "buy" -> swapInfo.buy.value,
-        "sell" -> swapInfo.sell.value,
-        "swapCurrency" -> swapInfo.buy.currency.name
-      )
-    }
-    def insert(obj: MongoDBObject) = {
+
+    def insert(obj: SwapInfo) = {
       logger.info(s"insert: $obj")
-      coll.insert(obj)
+      coll.insert(grater[SwapInfoForDB].asDBObject(obj.serialize))
     }
 
     // duplication check
     def isNotDuplicate(swapInfo: SwapInfo): Boolean = {
       val condition = MongoDBObject(
-        "broker" -> swapInfo.brokerName,
+        "brokerName" -> swapInfo.brokerName,
         "pair" -> swapInfo.pair.toString,
         "date" -> swapInfo.date.getTime
       )
       coll.findOne(condition).isEmpty
     }
 
-    swaps.filter(isNotDuplicate).map(swapInfo2MongoDBObject).foreach(insert)
+    swaps.filter(isNotDuplicate).foreach(insert)
   }
 }
