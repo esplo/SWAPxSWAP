@@ -28,10 +28,10 @@ class DBManager {
 
 
   // write SwapInfo to DB
-  def writeSwapInfo(brokerName: String, swaps: List[SwapInfo]) = {
+  def writeSwapInfo(swaps: List[SwapInfo]) = {
     def swapInfo2MongoDBObject(swapInfo: SwapInfo): MongoDBObject = {
       MongoDBObject(
-        "broker" -> brokerName,
+        "broker" -> swapInfo.brokerName,
         "pair" -> swapInfo.pair.toString,
         "date" -> swapInfo.date.getTime,
         "numberOfDays" -> swapInfo.numberOfDays.getOrElse(-1),
@@ -48,7 +48,7 @@ class DBManager {
     // duplication check
     def isNotDuplicate(swapInfo: SwapInfo): Boolean = {
       val condition = MongoDBObject(
-        "broker" -> brokerName,
+        "broker" -> swapInfo.brokerName,
         "pair" -> swapInfo.pair.toString,
         "date" -> swapInfo.date.getTime
       )

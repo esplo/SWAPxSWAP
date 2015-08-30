@@ -36,7 +36,8 @@ class YJFX extends Broker("YJFX", "http://www.yjfx.jp/gaikaex/mark/swap/today.ph
 
       CurrencyFormatter.str2CurrencyPair(pair, "/") match {
         case Some(p) =>
-          Some(new SwapInfo(
+          Some(SwapInfo(
+            name,
             p,
             today,
             Some(num),

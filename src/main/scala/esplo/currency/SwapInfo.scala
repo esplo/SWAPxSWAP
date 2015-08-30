@@ -4,12 +4,13 @@ import java.text.DateFormat
 import java.util.Calendar
 
 
-class SwapInfo(
-                val pair: CurrencyPair,
-                val date: Calendar,
-                val numberOfDays: Option[Int],  // None means that there is no information about the number of days
-                val buy: Price,
-                val sell: Price
+case class SwapInfo(
+                   brokerName: String,
+                   pair: CurrencyPair,
+                   date: Calendar,
+                   numberOfDays: Option[Int],  // None means that there is no information about the number of days
+                   buy: Price,
+                   sell: Price
                 ) {
 
   override def toString = {

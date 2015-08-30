@@ -27,7 +27,7 @@ object Main {
   }
 
   def write(driver: PhantomJSDriver)(broker: Broker) = {
-    dbManager.writeSwapInfo( broker.name, broker.parse(driver) )
+    dbManager.writeSwapInfo( broker.parse(driver) )
   }
 
 }

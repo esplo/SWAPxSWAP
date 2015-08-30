@@ -36,7 +36,8 @@ class Livestar extends Broker("Livestar", "http://www.live-sec.co.jp/fx/swap/") 
         case Some(currencyPairName) =>
           val bidID = s"sallbid_$id"
           val askID = s"sallask_$id"
-          Some(new SwapInfo(
+          Some(SwapInfo(
+            name,
             currencyPairName,
             date,
             None,
