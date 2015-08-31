@@ -66,9 +66,11 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
           val cal = Calendar.getInstance()
           cal.setTime(date)
 
-          // 現在時刻より進んでいる => 12月の情報なら1年戻して調整
-          if (Calendar.getInstance().compareTo(cal) < 0)
+          // データが1月で、現在が12月の場合、1年戻す
+          if (cal.get(Calendar.MONTH) == Calendar.JANUARY &&
+            Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER)
             cal.add(Calendar.YEAR, -1)
+
           cal
         }
 
