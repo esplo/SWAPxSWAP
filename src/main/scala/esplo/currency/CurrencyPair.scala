@@ -2,5 +2,5 @@ package esplo.currency
 
 
 case class CurrencyPair(base: Currency, quote: Currency) {
-  override def toString = base + "/" + quote
+  override def toString = base.toString + quote.toString
 }

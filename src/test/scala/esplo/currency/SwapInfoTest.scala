@@ -12,7 +12,7 @@ class SwapInfoTest extends FunSuite {
       val now = Calendar.getInstance()
       val swapInfo = SwapInfo(
         "testBroker",
-        CurrencyFormatter.str2CurrencyPair("USD/JPY").get,
+        CurrencyFormatter.str2CurrencyPair("USDJPY").get,
         now,
         Some(3),
         new Price(CurrencyFormatter.str2Currency("JPY").get, 5),
@@ -20,7 +20,7 @@ class SwapInfoTest extends FunSuite {
       )
       val swapInfoDB = SwapInfoForDB(
         "testBroker",
-        "USD/JPY",
+        "USDJPY",
         now.getTime,
         Some(3),
         5,
