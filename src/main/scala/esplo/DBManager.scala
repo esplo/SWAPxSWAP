@@ -40,7 +40,7 @@ class DBManager {
     // duplication check
     def isNotDuplicate(swapInfo: SwapInfo): Boolean = {
       val condition = MongoDBObject(
-        "brokerName" -> swapInfo.brokerName,
+        "broker" -> swapInfo.broker,
         "pair" -> swapInfo.pair.toString,
         "date" -> swapInfo.date.getTime
       )
