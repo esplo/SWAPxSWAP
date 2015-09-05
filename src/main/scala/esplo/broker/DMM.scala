@@ -3,11 +3,11 @@ package esplo.broker
 import java.text.SimpleDateFormat
 import java.time.{LocalDate, Month}
 
-import esplo.currency.{Price, SwapInfo, CurrencyFormatter, Currency}
-import Currency.JPY
-import org.openqa.selenium.{By, WebDriver, WebElement}
+import esplo.currency.Currency.JPY
+import esplo.currency.{CurrencyFormatter, Price, SwapInfo}
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.openqa.selenium.support.ui.{ExpectedCondition, WebDriverWait}
+import org.openqa.selenium.{By, WebDriver, WebElement}
 
 import scala.collection.JavaConversions._
 
@@ -43,8 +43,8 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
         // テーブルをパースし、文字列のリストにする
         // 付与日数、買、売が"-"になっている場合（休日）は除外
         table.findElements(By.xpath("tbody/tr")).map(
-            _.findElements(By.tagName("td")).map(_.getText).toList
-          ).toList.
+          _.findElements(By.tagName("td")).map(_.getText).toList
+        ).toList.
           filter(!_.contains("-"))
       }
 
@@ -62,13 +62,13 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
         def getDate(day: String): LocalDate = {
           val now = LocalDate.now()
           val mmdd = day.split("/")
-          if(mmdd.length < 2)
+          if (mmdd.length < 2)
             throw new IllegalArgumentException
 
           val target = LocalDate.of(now.getYear, mmdd(0).toInt, mmdd(1).toInt)
 
           // データが1月で、現在が12月の場合、1年戻す
-          if(now.getMonth == Month.JANUARY && target.getMonth == Month.DECEMBER)
+          if (now.getMonth == Month.JANUARY && target.getMonth == Month.DECEMBER)
             target.minusYears(1)
           else
             target

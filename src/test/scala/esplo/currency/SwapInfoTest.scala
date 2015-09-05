@@ -22,7 +22,7 @@ class SwapInfoTest extends FunSuite {
       val swapInfoDB = SwapInfoForDB(
         "testBroker",
         "USDJPY",
-        Date.from( now.atStartOfDay(ZoneId.of("UTC")).toInstant ),
+        Date.from(now.atStartOfDay(ZoneId.of("UTC")).toInstant),
         Some(3),
         5,
         -10,

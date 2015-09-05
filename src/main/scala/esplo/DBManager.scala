@@ -1,12 +1,12 @@
 package esplo
 
 import com.mongodb.casbah.Imports._
-import com.typesafe.scalalogging.Logger
-import esplo.config.Settings
-import esplo.currency.{SwapInfoForDB, SwapInfo}
-import org.slf4j.LoggerFactory
 import com.novus.salat._
 import com.novus.salat.global._
+import com.typesafe.scalalogging.Logger
+import esplo.config.Settings
+import esplo.currency.{SwapInfo, SwapInfoForDB}
+import org.slf4j.LoggerFactory
 
 
 class DBManager {
@@ -19,7 +19,7 @@ class DBManager {
   )
   val db = mongoClient(Settings.appConfig.mongoDBName)
   val coll = {
-    if (! db.collectionExists(Settings.appConfig.mongoCollectionName))
+    if (!db.collectionExists(Settings.appConfig.mongoCollectionName))
       db.createCollection(Settings.appConfig.mongoCollectionName, DBObject())
     db(Settings.appConfig.mongoCollectionName)
   }

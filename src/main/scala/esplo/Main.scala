@@ -19,7 +19,7 @@ object Main {
     val writer = write(driver) _
     writer(new DMM)
     writer(new Livestar)
-    writer(new YJFX )
+    writer(new YJFX)
 
     logger.info("end collecting")
 
@@ -27,7 +27,7 @@ object Main {
   }
 
   def write(driver: PhantomJSDriver)(broker: Broker) = {
-    dbManager.writeSwapInfo( broker.parse(driver) )
+    dbManager.writeSwapInfo(broker.parse(driver))
   }
 
 }

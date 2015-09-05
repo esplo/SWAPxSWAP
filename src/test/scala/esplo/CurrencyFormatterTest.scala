@@ -1,7 +1,7 @@
 package esplo
 
-import esplo.currency.{CurrencyFormatter, Currency}
-import Currency.{EUR, JPY, USD}
+import esplo.currency.Currency.{EUR, JPY, USD}
+import esplo.currency.{Currency, CurrencyFormatter}
 
 class CurrencyFormatterTest extends org.scalatest.FunSuite {
 
