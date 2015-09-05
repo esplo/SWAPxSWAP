@@ -12,5 +12,6 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-simple" % "1.7.12",
   "org.scala-lang" % "scala-compiler" % scalaVersion.value,
   "org.mongodb" %% "casbah" % "2.8.2",
-  "com.novus" %% "salat" % "1.9.9"
+  "com.novus" %% "salat" % "1.9.9",
+  "com.google.code.findbugs" % "jsr305" % "1.3.+"
 )
