@@ -42,7 +42,7 @@ class DBManager {
       val condition = MongoDBObject(
         "broker" -> swapInfo.broker,
         "pair" -> swapInfo.pair.toString,
-        "date" -> swapInfo.date.getTime
+        "date" -> swapInfo.getDateForMongo
       )
       coll.findOne(condition).isEmpty
     }

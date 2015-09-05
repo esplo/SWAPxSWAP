@@ -1,6 +1,7 @@
 package esplo.currency
 
-import java.util.Calendar
+import java.time.{LocalDate, ZoneId}
+import java.util.Date
 
 import org.scalatest.FunSuite
 
@@ -9,7 +10,7 @@ class SwapInfoTest extends FunSuite {
 
   def fixture =
     new {
-      val now = Calendar.getInstance()
+      val now = LocalDate.now()
       val swapInfo = SwapInfo(
         "testBroker",
         CurrencyFormatter.str2CurrencyPair("USDJPY").get,
@@ -21,7 +22,7 @@ class SwapInfoTest extends FunSuite {
       val swapInfoDB = SwapInfoForDB(
         "testBroker",
         "USDJPY",
-        now.getTime,
+        Date.from( now.atStartOfDay(ZoneId.of("UTC")).toInstant ),
         Some(3),
         5,
         -10,

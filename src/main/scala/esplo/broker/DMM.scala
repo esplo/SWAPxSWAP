@@ -1,7 +1,7 @@
 package esplo.broker
 
 import java.text.SimpleDateFormat
-import java.util.{Calendar, Date}
+import java.time.{LocalDate, Month}
 
 import esplo.currency.{Price, SwapInfo, CurrencyFormatter, Currency}
 import Currency.JPY
@@ -50,7 +50,6 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
 
       val table = getTable(id)
       val elements = table2Elements(table)
-      val thisYear = new SimpleDateFormat("yyyy").format(new Date).toInt
       val dayFormat = new SimpleDateFormat("yyyy/MM/dd")
 
       val pairs = "通貨ペア" :: table.findElements(By.xpath("thead/tr/th")).drop(2).map(_.getText).toList
@@ -60,18 +59,19 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
       (0 until elements.size / 3).flatMap(_i => {
         val i = _i * 3
 
-        // MM/DD形式の日付をYYYY/MM/DDに変換
-        def getDay(day: String): Calendar = {
-          val date = dayFormat.parse(s"$thisYear/$day")
-          val cal = Calendar.getInstance()
-          cal.setTime(date)
+        def getDate(day: String): LocalDate = {
+          val now = LocalDate.now()
+          val mmdd = day.split("/")
+          if(mmdd.length < 2)
+            throw new IllegalArgumentException
+
+          val target = LocalDate.of(now.getYear, mmdd(0).toInt, mmdd(1).toInt)
 
           // データが1月で、現在が12月の場合、1年戻す
-          if (cal.get(Calendar.MONTH) == Calendar.JANUARY &&
-            Calendar.getInstance().get(Calendar.MONTH) == Calendar.DECEMBER)
-            cal.add(Calendar.YEAR, -1)
-
-          cal
+          if(now.getMonth == Month.JANUARY && target.getMonth == Month.DECEMBER)
+            target.minusYears(1)
+          else
+            target
         }
 
         def getPairData(pairs: List[String], elements: List[List[String]]): List[(String, Int, Int, Int)] = {
@@ -96,7 +96,7 @@ class DMM extends Broker("DMM", "http://fx.dmm.com/market/swapcalendar_fx/index1
         }
 
         // MM/DDを取り出して変換
-        val date = getDay(elements(i).head.take(5))
+        val date = getDate(elements(i).head.take(5))
 
         // returns List[SwapInfo] from elements
         getPairData(pairs, elements).flatMap(elem => {

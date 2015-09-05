@@ -1,13 +1,14 @@
 package esplo.currency
 
 import java.text.DateFormat
-import java.util.{Date, Calendar}
+import java.time._
+import java.util.Date
 
 
 case class SwapInfo(
                      broker: String,
                      pair: CurrencyPair,
-                     date: Calendar,
+                     date: LocalDate,
                      num: Option[Int], // None means that there is no information about the number of days
                      buy: Price,
                      sell: Price
@@ -18,7 +19,7 @@ case class SwapInfo(
     SwapInfoForDB(
       broker,
       pair.toString,
-      date.getTime,
+      getDateForMongo,
       num,
       buy.value,
       sell.value,
@@ -28,7 +29,13 @@ case class SwapInfo(
 
   override def toString = {
     val format2 = DateFormat.getDateInstance
-    s"broker: $broker $pair ${format2.format(date.getTime)} buy:$buy sell:$sell num:$num"
+    s"broker: $broker $pair $date buy:$buy sell:$sell num:$num"
+  }
+
+  def getDateForMongo: Date = {
+    Date.from(
+      date.atStartOfDay(ZoneId.of("UTC")).toInstant
+    )
   }
 }
 
@@ -50,7 +57,7 @@ case class SwapInfoForDB(
     SwapInfo(
       broker,
       CurrencyFormatter.str2CurrencyPair(pair).get,
-      { val c = Calendar.getInstance(); c.setTime(date); c },
+      LocalDate.ofEpochDay(date.getTime),
       num,
       new Price(swapCurrency, buy),
       new Price(swapCurrency, sell)

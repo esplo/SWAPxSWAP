@@ -1,7 +1,7 @@
 package esplo.broker
 
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 import esplo.currency.Currency.JPY
 import esplo.currency.{CurrencyFormatter, Price, SwapInfo}
@@ -23,11 +23,8 @@ class Livestar extends Broker("Livestar", "http://www.live-sec.co.jp/fx/swap/") 
     logger.info(s"start parsing $name")
 
     val date = {
-      val format = new SimpleDateFormat("yyyy年MM月dd日")
-      val date = format.parse(driver.findElementById("nowtime_sall").getText)
-      val cal = Calendar.getInstance()
-      cal.setTime(date)
-      cal
+      val format = DateTimeFormatter.ofPattern("yyyy年MM月dd日")
+      LocalDate.parse(driver.findElementById("nowtime_sall").getText, format)
     }
 
     idList.flatMap(id => {
@@ -43,6 +40,7 @@ class Livestar extends Broker("Livestar", "http://www.live-sec.co.jp/fx/swap/") 
             None,
             new Price(JPY, driver.findElementById(askID).getText.toLong),
             new Price(JPY, driver.findElementById(bidID).getText.toLong)))
-      }})
+      }
+    })
   }
 }
