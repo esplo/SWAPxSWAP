@@ -17,9 +17,13 @@ import scala.sys._
 
 new AppConfig {
   override val phantomJSPath: String = """/phantomjs/bin/phantomjs"""
+  
+  override val mongoURI: String = env.getOrElse("MONGOLAB_URI", "")
+  
   override val mongoHost: String = sys.env.getOrElse("DB_PORT_27017_TCP_ADDR", "localhost")
   override val mongoPort: Int = sys.env.getOrElse("DB_PORT_27017_TCP_PORT", "27017").toInt
   override val mongoDBName: String = "swap-swap"
+  
   override val mongoCollectionName: String = "SwapInfo"
 }
 ```
@@ -28,12 +32,14 @@ new AppConfig {
 
 * phantomJSPath
     * PhantomJSのexeファイルへのパス
+* mongoURI
+    * URIによるMongoDBの接続設定。mongodb://username:password@server:port/database の完全なURIで指定。これが空白("")以外だと、以下のmongoHost, mongoPort, mongoDBは使われない
 * mongoHost
-    * MongoDBのホスト名
+    * MongoDBのホスト名。mongoURIが指定されている場合使われない
 * mongoPort
-    * MongoDBのポート
+    * MongoDBのポート。mongoURIが指定されている場合使われない
 * mongoDBName
-    * MongoDBで使用するDB名
+    * MongoDBで使用するDB名。mongoURIが指定されている場合使われない
 * mongoCollectionName
     * MongoDBで使用するコレクション名
 

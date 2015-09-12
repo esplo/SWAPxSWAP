@@ -13,11 +13,20 @@ class DBManager {
   val logger = Logger(LoggerFactory.getLogger("swap-swap:db"))
   logger.info("Start initializing DB")
 
-  val mongoClient = MongoClient(
-    Settings.appConfig.mongoHost,
-    Settings.appConfig.mongoPort
-  )
-  val db = mongoClient(Settings.appConfig.mongoDBName)
+  val db = {
+    // use mongoHost & mongoPort if mongoURI is not set
+    if(Settings.appConfig.mongoURI.isEmpty) {
+      val client = MongoClient(
+        Settings.appConfig.mongoHost,
+        Settings.appConfig.mongoPort
+      )
+      client(Settings.appConfig.mongoDBName)
+    }
+    else {
+      val uri = MongoClientURI(Settings.appConfig.mongoURI)
+      MongoClient(uri)(uri.database.get)
+    }
+  }
   val coll = {
     if (!db.collectionExists(Settings.appConfig.mongoCollectionName))
       db.createCollection(Settings.appConfig.mongoCollectionName, DBObject())
