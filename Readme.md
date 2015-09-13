@@ -50,6 +50,26 @@ new AppConfig {
 
 Dockerを使用して実行する方法を推奨しますが、使用できない環境などでは手動実行の方法を利用してください。
 
+### heroku
+事前にherokuコマンドが実行可能な状態になっているとします。
+
+```bash
+$ git clone <cloned-repository> swapxswap
+$ cd swapxswap
+$ heroku create
+
+# add-ons
+$ heroku addons:create mongolab:sandbox
+
+# environment variables
+$ heroku buildpacks:set https://github.com/heroku/heroku-buildpack-multi.git
+$ heroku config:add SWAPxSWAP_CONF=heroku.conf
+
+$ heroku scale:ps worker=1
+$ git push heroku master
+```
+
+
 ### Docker
 事前にdocker、docker-composeをインストールします。
 その後、dockerフォルダ内で以下のコマンドを実行します。
