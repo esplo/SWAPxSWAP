@@ -18,3 +18,5 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += Resolver.sonatypeRepo("public")
+
+enablePlugins(JavaAppPackaging)
