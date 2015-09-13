@@ -33,6 +33,7 @@ class DBManager(val settings: Settings) {
     db(settings.appConfig.mongoCollectionName)
   }
 
+  logger.info(s"db: ${settings.appConfig.mongoURI}")
   logger.info(s"${settings.appConfig.mongoHost}:${settings.appConfig.mongoPort}")
   logger.info(s"db: ${settings.appConfig.mongoDBName}")
   logger.info(s"db: ${settings.appConfig.mongoCollectionName}")
