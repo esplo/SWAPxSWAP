@@ -13,5 +13,8 @@ libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-compiler" % scalaVersion.value,
   "org.mongodb" %% "casbah" % "2.8.2",
   "com.novus" %% "salat" % "1.9.9",
-  "com.google.code.findbugs" % "jsr305" % "1.3.+"
+  "com.google.code.findbugs" % "jsr305" % "1.3.+",
+  "com.github.scopt" %% "scopt" % "3.3.0"
 )
+
+resolvers += Resolver.sonatypeRepo("public")

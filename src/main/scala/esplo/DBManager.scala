@@ -9,33 +9,33 @@ import esplo.currency.{SwapInfo, SwapInfoForDB}
 import org.slf4j.LoggerFactory
 
 
-class DBManager {
+class DBManager(val settings: Settings) {
   val logger = Logger(LoggerFactory.getLogger("swap-swap:db"))
   logger.info("Start initializing DB")
 
   val db = {
     // use mongoHost & mongoPort if mongoURI is not set
-    if(Settings.appConfig.mongoURI.isEmpty) {
+    if(settings.appConfig.mongoURI.isEmpty) {
       val client = MongoClient(
-        Settings.appConfig.mongoHost,
-        Settings.appConfig.mongoPort
+        settings.appConfig.mongoHost,
+        settings.appConfig.mongoPort
       )
-      client(Settings.appConfig.mongoDBName)
+      client(settings.appConfig.mongoDBName)
     }
     else {
-      val uri = MongoClientURI(Settings.appConfig.mongoURI)
+      val uri = MongoClientURI(settings.appConfig.mongoURI)
       MongoClient(uri)(uri.database.get)
     }
   }
   val coll = {
-    if (!db.collectionExists(Settings.appConfig.mongoCollectionName))
-      db.createCollection(Settings.appConfig.mongoCollectionName, DBObject())
-    db(Settings.appConfig.mongoCollectionName)
+    if (!db.collectionExists(settings.appConfig.mongoCollectionName))
+      db.createCollection(settings.appConfig.mongoCollectionName, DBObject())
+    db(settings.appConfig.mongoCollectionName)
   }
 
-  logger.info(s"${Settings.appConfig.mongoHost}:${Settings.appConfig.mongoPort}")
-  logger.info(s"db: ${Settings.appConfig.mongoDBName}")
-  logger.info(s"db: ${Settings.appConfig.mongoCollectionName}")
+  logger.info(s"${settings.appConfig.mongoHost}:${settings.appConfig.mongoPort}")
+  logger.info(s"db: ${settings.appConfig.mongoDBName}")
+  logger.info(s"db: ${settings.appConfig.mongoCollectionName}")
 
 
   // write SwapInfo to DB

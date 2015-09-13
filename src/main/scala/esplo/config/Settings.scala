@@ -1,6 +1,8 @@
 package esplo.config
 
+import java.io.File
 
-object Settings {
-  val appConfig = Eval.fromFileName[AppConfig]("./app.conf")
+
+class Settings(val conf: File) {
+  val appConfig = Eval.fromFile[AppConfig](conf)
 }
