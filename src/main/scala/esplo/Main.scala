@@ -9,7 +9,11 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.slf4j.LoggerFactory
 
 
-case class Config(configFile: File = new File("./app.conf"))
+case class Config(
+                   configFile: File = {
+                     val path = sys.env.getOrElse("SWAPxSWAP_CONF", "./app.conf")
+                     new File(path)
+                   })
 
 
 object Main {
