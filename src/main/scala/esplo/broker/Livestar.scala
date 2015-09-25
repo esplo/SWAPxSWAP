@@ -1,6 +1,6 @@
 package esplo.broker
 
-import java.time.LocalDate
+import java.time.{DayOfWeek, LocalDate}
 import java.time.format.DateTimeFormatter
 
 import esplo.currency.Currency.JPY
@@ -27,6 +27,10 @@ class Livestar extends Broker("Livestar", "http://www.live-sec.co.jp/fx/swap/") 
       LocalDate.parse(driver.findElementById("nowtime_sall").getText, format)
     }
 
+    // On Monday, swap point is three times as large as it is usual
+    val isMonday = date.getDayOfWeek == DayOfWeek.MONDAY
+    def threeTimes(v: Long) = { if(isMonday) v*3 else v }
+
     idList.flatMap(id => {
       CurrencyFormatter.str2CurrencyPair(id) match {
         case None => None
@@ -37,9 +41,11 @@ class Livestar extends Broker("Livestar", "http://www.live-sec.co.jp/fx/swap/") 
             name,
             currencyPairName,
             date,
-            None,
-            new Price(JPY, driver.findElementById(askID).getText.toLong),
-            new Price(JPY, driver.findElementById(bidID).getText.toLong)))
+            if(isMonday) Some(3) else Some(1),
+            new Price(JPY,
+              threeTimes(driver.findElementById(askID).getText.toLong)),
+            new Price(JPY,
+              threeTimes(driver.findElementById(bidID).getText.toLong))))
       }
     })
   }
