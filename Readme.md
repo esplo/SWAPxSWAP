@@ -69,6 +69,16 @@ $ git push heroku master
 $ heroku ps:scale worker=1
 ```
 
+定期的に実行するには、以下のように設定します。
+ログの表示も併せて行っています。
+
+```bash
+$ heroku addons:create papertrail
+$ heroku addons:create scheduler
+
+Schedulerに以下のコマンドを設定
+target/universal/stage/bin/swapxswap
+```
 
 ### Docker
 事前にdocker、docker-composeをインストールします。
