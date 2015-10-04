@@ -65,8 +65,8 @@ $ heroku addons:create mongolab:sandbox
 $ heroku buildpacks:set https://github.com/heroku/heroku-buildpack-multi.git
 $ heroku config:add SWAPxSWAP_CONF=heroku.conf
 
-$ heroku scale:ps worker=1
 $ git push heroku master
+$ heroku ps:scale worker=1
 ```
 
 
